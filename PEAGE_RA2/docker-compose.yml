@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+    min_intranet:
+        build: .
+        container_name: PEAGE_RA_REC
+        ports:
+            - 8080:80
+        environment:
+            BDD_CRISTAL_HOST: cristal3.min.fr
+            BDD_CRISTAL_USER: AboRungis
+            BDD_CRISTAL_USER_PASSWORD: AboRungis
+            BDD_CRISTAL_BASE: AboRungis
+            BDD_BRIDGE_HOST: bridge.min.fr
+            BDD_BRIDGE_USER: sa
+            BDD_BRIDGE_USER_PASSWORD: bridge
+            BDD_BRIDGE_BASE: Barcodes
+            LDAP_HOST: ldap://min.fr:389
+            LDAP_GROUP_USER_DN: "CN=gg_rungis_informatique,OU=groupe global,OU=Rungis,DC=min,DC=fr"
+            LDAP_GROUP_ADMIN_DN: "CN=gg_rungis_informatique,OU=groupe global,OU=Rungis,DC=min,DC=fr"
+        develop:
+            watch:
+                - action: rebuild
+                  path: ./BUILD/SRC
+                  target: /var/www/
+
