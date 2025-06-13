@@ -1,4 +1,10 @@
 <?php
+
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+var_dump($_POST); // pour voir ce que JS envoie vraiment
+
 require_once '../config.php';
 require_once '../classes/Carte.php';
 require_once '../classes/Client.php';

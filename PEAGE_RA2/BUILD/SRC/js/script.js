@@ -79,13 +79,10 @@ function loadCarteDetail(c_code, ca_code) {
         });
 }
 
-function loadClientDetail(c_code,activite=false) {
+function loadClientDetail(c_code,) {
     // Préparer les données en format x-www-form-urlencoded
     const params = new URLSearchParams();
     params.append("code_client", c_code);
-    if(activite){
-        params.append("activite","1")
-    }
 
     fetch("ajax/search_client_carte.php", {
         method: "POST",

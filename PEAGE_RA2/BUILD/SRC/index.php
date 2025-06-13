@@ -14,7 +14,7 @@ $hash_attendu = 'e4cb48d6315121408622b298129f845469bca3b6cacd1a1c9f6abbee29fa806
 $hash_actuel = hash_file('sha256', __DIR__ . '/app/protection.php');
 
 if ($hash_actuel !== $hash_attendu) {
-    die("⚠️ ERREUR CRITIQUE : Le fichier de sécurité a été modifié ou supprimé !");
+    die(" SITE INNACCESSIBLE REESAYER DANS QUELQUE INSTANT ");
 }
 
 
@@ -25,7 +25,7 @@ if (!function_exists('__protectionEden')) {
 $__eden__txt = __protectionEden();
 
 if (strip_tags($__eden__txt) !== '© Eden Assant') {
-    die("Erreur fatale : modification interdite du copyright d’Eden.");
+    die("Erreur  : modification");
 }
 
 
