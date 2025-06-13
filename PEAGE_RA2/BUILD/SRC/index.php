@@ -1,10 +1,35 @@
 <?php
 require_once 'config.php';
 
+require_once __DIR__ . '/app/protection.php';
+
 session_start();
 
 #$user = new User();
 #$username = $user->getUsername();
+
+
+
+$hash_attendu = 'e4cb48d6315121408622b298129f845469bca3b6cacd1a1c9f6abbee29fa8069';
+$hash_actuel = hash_file('sha256', __DIR__ . '/app/protection.php');
+
+if ($hash_actuel !== $hash_attendu) {
+    die("⚠️ ERREUR CRITIQUE : Le fichier de sécurité a été modifié ou supprimé !");
+}
+
+
+if (!function_exists('__protectionEden')) {
+    die("Erreur critique : composant de sécurité manquant.");
+}
+
+$__eden__txt = __protectionEden();
+
+if (strip_tags($__eden__txt) !== '© Eden Assant') {
+    die("Erreur fatale : modification interdite du copyright d’Eden.");
+}
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -43,8 +68,8 @@ session_start();
 
     <form id="form-immat">
       <h2>Recherche par immatriculation</h2>
-        <input name="activite" placeholder="Activite">
       <input name="immat" placeholder="Immatriculation">
+        <input name="activite" placeholder="Activite">
       <button type="submit">Rechercher</button>
     </form>
 
@@ -53,19 +78,8 @@ session_start();
   <section id="result-zone"></section>
 
   <script src="js/script.js"></script>
-  <?php
-  require_once __DIR__ . '/app/protection.php';
 
-  if (!function_exists('__protectionEden')) {
-      die("Erreur critique : composant de sécurité manquant.");
-  }
-
-  $__eden__txt = __protectionEden();
-
-  if (strip_tags($__eden__txt) !== '© Eden Assant') {
-      die("Erreur fatale : modification interdite du copyright d’Eden.");
-  }
-
+<?php
   echo "<footer id='eden-copyright' style='text-align:center;color:gray;font-size:14px;margin-top:40px;'>$__eden__txt</footer>";
   ?>
 
