@@ -53,6 +53,7 @@ $firstCarte = reset($carte_detail);
         </tr>
         </thead>
         <tbody>
+        <?php if (!empty($carte_detail)): ?>
         <?php foreach ($carte_detail as $c1): ?>
             <tr>
                 <td><?= htmlspecialchars($c1['ca_code']) ?></td>
@@ -80,6 +81,11 @@ $firstCarte = reset($carte_detail);
                 <td><?= $c1['ca_ln'] ? '✅' : '❌' ?></td>
             </tr>
         <?php endforeach; ?>
+        <?php else: ?>
+        <tr>
+            <td colspan="13" style="text-align: center;">Aucune carte trouvée</td>
+        </tr>
+        <?php endif; ?>
         </tbody>
 
     </table>
