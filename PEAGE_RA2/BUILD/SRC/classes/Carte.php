@@ -124,7 +124,7 @@ class Carte {
     /**
      * Recherche les cartes d’un client avec filtre sur les champs libres
      */
-    public function searchCartesByLibres(string $libre): array {
+    public function searchCartesByLibres(string $libre,bool $activite =false): array {
         $sql = "
             SELECT 
                 a.c_code,
@@ -152,11 +152,15 @@ class Carte {
             WHERE 
                 (a.ca_champ_1 LIKE :libre1
                 OR a.ca_champ_2 LIKE :libre2
-                OR a.ca_champ_3 LIKE :libre3)
-            ORDER BY 
-                a.c_code DESC
+                OR a.ca_champ_3 LIKE :libre3)";
 
-        ";
+
+        if($activite) {
+        $sql .= " AND a.ca_valid = 1";
+    }
+
+    $sql .= " ORDER BY a.c_code DESC";
+
 
         $stmt = $this->db->prepare($sql);
         $like = '%' . $libre . '%';

@@ -3,6 +3,7 @@ require_once '../config.php';
 require_once '../classes/Carte.php';
 
 $libre = $_POST['libre'] ?? '';
+$activite = $_POST['activite'] ?? '';
 
 
 try {
@@ -10,7 +11,7 @@ try {
     $db_cristal->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $carte = new Carte($db_cristal);
-    $cartes = $carte->searchCartesByLibres($libre);
+    $cartes = $carte->searchCartesByLibres($libre,$activite);
 
     include '../views/partials/carte_list_immat.php';
 
