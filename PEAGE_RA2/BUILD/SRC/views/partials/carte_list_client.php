@@ -45,3 +45,9 @@
     <?php endforeach; ?>
   </tbody>
 </table>
+
+<?php /*
+<footer style="text-align: -moz-center; font-size: 12px; color: #999;">
+    &copy; Eden Assant
+</footer>
+*/ ?>

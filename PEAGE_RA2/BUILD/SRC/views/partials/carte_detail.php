@@ -1,7 +1,6 @@
 
 <?php
 
-
 //echo "DEBUG: code client = " . htmlspecialchars($_POST['code_client'] ?? 'rien') . ", carte = " . htmlspecialchars($_POST['numero_carte'] ?? 'rien') . "<br>";
 
 // Affichage des erreurs
@@ -156,7 +155,10 @@ $firstCarte = reset($carte_detail);
         Voir toutes les cartes
     </button>
 </div>
-
-
+<?php /*
+<footer style="text-align: -moz-center; font-size: 12px; color: #999;">
+    &copy; Eden Assant
+</footer>
+*/?>
 
 
