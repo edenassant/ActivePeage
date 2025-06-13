@@ -3,6 +3,7 @@ require_once '../config.php';
 require_once '../classes/Carte.php';
 
 $immat = $_POST['immat'] ?? null;
+$activite = $_POST['activite'] ?? null;
 
 if (!$immat) {
     echo "<p>Veuillez renseigner une immatriculation.</p>";
@@ -14,7 +15,7 @@ try {
     $db_cristal->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $carte = new Carte($db_cristal);
-    $cartes = $carte->searchCartesByImmatriculation($immat);
+    $cartes = $carte->searchCartesByImmatriculation($immat,$activite);
 
     include '../views/partials/carte_list_immat.php';
 

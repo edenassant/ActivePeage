@@ -85,7 +85,7 @@ class Carte {
     /**
      * Récupère les cartes d'une plaque
      */
-    public function searchCartesByImmatriculation(string $plaque): array {
+    public function searchCartesByImmatriculation(string $plaque,bool $activite =false): array {
         $sql = "
             SELECT 
                 a.c_code,
@@ -109,9 +109,13 @@ class Carte {
             JOIN type_carte c ON a.tcarte_code = c.tcarte_code
             JOIN client e ON a.c_code = e.c_code
             AND UPPER(REPLACE(REPLACE(a.ca_immatriculation, '-', ''), ' ', '')) LIKE 
-                UPPER(REPLACE(REPLACE(:plaque, '-', ''), ' ', ''))
-            ORDER BY a.c_code DESC
-        ";
+                UPPER(REPLACE(REPLACE(:plaque, '-', ''), ' ', ''))";
+        if($activite) {
+            $sql .= " AND a.ca_valid = 1";
+        }
+
+        $sql .= " ORDER BY a.c_code DESC";
+
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':plaque', "%$plaque%", PDO::PARAM_STR);
