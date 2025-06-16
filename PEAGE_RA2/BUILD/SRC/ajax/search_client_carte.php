@@ -1,9 +1,14 @@
 <?php
 
-
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-var_dump($_POST); // pour voir ce que JS envoie vraiment
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+////
+////
+//////error_reporting(E_ALL);
+////ini_set("display_errors", 1);
+//var_dump($_POST);
+//exit;
 
 require_once '../config.php';
 require_once '../classes/Carte.php';
@@ -14,7 +19,14 @@ require_once '../classes/Ticket.php';
 
 $code_client = $_POST['code_client'] ?? null;
 
-$activite  = $_POST['activite'] ?? null;
+if (empty($code_client)) {
+    http_response_code(400); // Mauvaise requête
+    echo "Erreur : code client manquant.";
+    exit;
+}
+
+
+$activite  = $_POST['activite'] ?? false;
 
 
 
@@ -32,17 +44,26 @@ try {
 
 
     $client_info = $client->getClientInfo($code_client);
+//    var_dump($client_info);
+//    if (!$client_info) {
+//        echo "Client non trouvé<br>";
+//        exit;
+//    }
     $client_pass_express = $ticket->searchPassExpressByClient($code_client);
+//    var_dump($client_pass_express);
+
     $cartes= $carte->searchCartesByClient($code_client,$activite);
 
 
+
+//    exit;
 //    echo '<pre>';
 //    var_dump($client_info);
 //    var_dump($client_pass_express);
 //    var_dump($cartes);
 //    echo '</pre>';
-
-
+//
+//
     include '../views/partials/client_info.php';
     include '../views/partials/carte_list_client.php';
 
@@ -61,8 +82,11 @@ try {
 // la valeur reçue puis stopper l'exécution
 //    var_dump($code_client);
 //    exit;
-
-// Le reste de ton code ici...
+//    if (empty($cartes)) {
+//        echo "<p>Aucune carte trouvée pour ce client.</p>";
+//    } else {
+//        echo "<p>" . count($cartes) . " carte(s) trouvée(s).</p>";
+//    }
 
 
 } catch (PDOException $e) {

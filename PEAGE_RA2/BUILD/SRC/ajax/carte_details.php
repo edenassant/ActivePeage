@@ -31,7 +31,7 @@ try {
 
 
 
-    echo "<p>Code client reçu : " . htmlspecialchars($code_client) . "</p>";
+//    echo "<p>Code client reçu : " . htmlspecialchars($code_client) . "</p>";
 
     $client_info = $client->getClientInfo($code_client);
     $client_pass_express = $ticket->searchPassExpressByClient($code_client);

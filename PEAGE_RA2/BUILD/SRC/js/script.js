@@ -35,6 +35,7 @@ function sendForm(formId, endpoint) {
         }
 
 
+
         fetch(`ajax/${endpoint}`, {
             method: "POST",
             body: formData
@@ -80,6 +81,7 @@ function loadCarteDetail(c_code, ca_code) {
 }
 
 function loadClientDetail(c_code,) {
+    console.log("code client",c_code);
     // Préparer les données en format x-www-form-urlencoded
     const params = new URLSearchParams();
     params.append("code_client", c_code);

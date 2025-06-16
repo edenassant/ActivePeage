@@ -3,10 +3,10 @@
 
 //echo "DEBUG: code client = " . htmlspecialchars($_POST['code_client'] ?? 'rien') . ", carte = " . htmlspecialchars($_POST['numero_carte'] ?? 'rien') . "<br>";
 
-// Affichage des erreurs
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//// Affichage des erreurs
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 //if (empty($carte_detail) || !is_array($carte_detail)) {
 //    echo "Erreur : aucune donnée carte disponible.";
@@ -149,12 +149,14 @@ $firstCarte = reset($carte_detail);
 
 </div>
 
+<?php if (!empty($client_info['c_code'])): ?>
 
 <div style="text-align: center; margin-top: 20px;">
-    <button onclick="loadClientDetail('<?= htmlspecialchars($client_info['c_code'] ?? '') ?>')" style="padding: 12px 24px; font-size: 18px;">
+    <button onclick="loadClientDetail('<?= htmlspecialchars($client_info ['c_code']) ?>')"  style="padding: 12px 24px; font-size: 18px;">
         Voir toutes les cartes
     </button>
 </div>
+<?php endif; ?>
 <?php /*
 <footer style="text-align: -moz-center; font-size: 12px; color: #999;">
     &copy; Eden Assant
