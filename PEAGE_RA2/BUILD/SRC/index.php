@@ -46,12 +46,12 @@ if (strip_tags($__eden__txt) !== '© Eden Assant') {
       <h2>Recherche par code client + carte</h2>
       <input name="code_client" placeholder="Code client"  >
       <input name="numero_carte" placeholder="Numéro de carte" >
-        <input name="activite" placeholder="Activite">
-
+        <label style="display: flex; align-items: center; gap: 8px; font-size:14px">
+            Carte active
+            <input type="checkbox" name="activite" style="width: 20px; height: 20px">
+        </label>
         <button type="submit">Rechercher</button>
     </form>
-
-
 
     <form id="form-raison">
       <h2>Recherche par raison sociale</h2>
@@ -62,14 +62,21 @@ if (strip_tags($__eden__txt) !== '© Eden Assant') {
     <form id="form-libre">
       <h2>Recherche par champs libre</h2>
       <input name="libre" placeholder="Libre">
-        <input name="activite" placeholder="Activite">
+        <label style="display: flex; align-items: center; gap: 8px; font-size:14px">
+            Carte active
+            <input type="checkbox" name="activite" style="width: 20px; height: 20px">
+        </label>
       <button type="submit">Rechercher</button>
     </form>
 
     <form id="form-immat">
       <h2>Recherche par immatriculation</h2>
-      <input name="immat" placeholder="Immatriculation">
-        <input name="activite" placeholder="Activite">
+        <input name="immat" placeholder="Immatriculation">
+        <label style="display: flex; align-items: center; gap: 8px; font-size:14px">
+            Carte active
+            <input type="checkbox" name="activite" style="width: 20px; height: 20px">
+        </label>
+
       <button type="submit">Rechercher</button>
     </form>
 
