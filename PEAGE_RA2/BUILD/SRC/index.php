@@ -85,15 +85,34 @@ if (strip_tags($__eden__txt) !== '© Eden Assant') {
             Carte active
             <input type="checkbox" name="activite" style="width: 20px; height: 20px">
         </label>
-
-      <button type="submit">Rechercher</button>
+        <button type="submit">Rechercher</button>
     </form>
 
+
+      <button onclick="logout()" style="background-color:  lightseagreen; color: white; padding: 2px 14px; font-size: 20px;">
+          Se déconnecter
+      </button>
+
+      <script>
+          function logout() {
+              fetch('logout.php', {
+                  method: 'POST'
+              }).then(() => {
+                  window.location.href = 'login.php';
+              });
+          }
+      </script>
+
   </section>
+
+
 
   <section id="result-zone"></section>
 
   <script src="js/script.js"></script>
+
+
+
 
 <?php
   echo "<footer id='eden-copyright' style='text-align:center;color:gray;font-size:14px;margin-top:40px;'>$__eden__txt</footer>";
