@@ -9,7 +9,6 @@ class Carte {
 
 
     public function searchCartesByClient(string $c_code, bool $activite = false): array {
-
         $sql = "SELECT 
             a.c_code,
             a.ca_code,

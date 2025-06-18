@@ -2,8 +2,9 @@
 session_start();
 require 'config.php';
 
-ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
-ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_NEVER);
+//eden teste
+
+$error = null;
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,43 +15,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Configuration sécurisée LDAP
     ldap_set_option($ldapConn, LDAP_OPT_PROTOCOL_VERSION, 3);
+//    ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
+    ldap_set_option(NULL, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_NEVER);
 
 
     try {
-        // Étape 1 : Bind initial avec le DN complet de l'utilisateur
+
         $userDn = $username."@min.fr";
     
-        if ($ldapConn) { 
-            if (!@ldap_bind($ldapConn, $userDn, $password)) {
-                throw new Exception("Identifiants incorrects");
-            }
-        } else {
-            throw new Exception("Impossible de se connecter au serveur LDAP - Contactez le support informatique");
+        if (@ldap_bind($ldapConn, $userDn, $password)) {
+
+            $groupFilter = "(member=CN=".$username.",OU=utilisateurs,OU=Rungis,DC=min,DC=fr)";
+            $searchResult = ldap_search($ldapConn, $ldap_group_user_dn, $groupFilter, ['dn']);
+            $entries = ldap_get_entries($ldapConn, $searchResult);
+
+
+               if($entries['count'] === 0){
+            throw new Exception("vous n'appartenez pas au groupe autorisé");
         }
 
-        // Étape 2 : Vérification de l'appartenance au groupe
-        $groupFilter = "(member=CN=".$username.",OU=utilisateurs,OU=Rungis,DC=min,DC=fr)";
-        $searchResult = ldap_search(
-            $ldapConn, 
-            $ldap_group_user_dn, 
-            $groupFilter, 
-            ['dn']
-        );
-        $entries = ldap_get_entries($ldapConn, $searchResult);
+            $_SESSION['username'] = $username;
+            $_SESSION['group'] = $ldap_group_user_dn;
+            error_log("Connexion réussie pour {$username} le " . date('Y-m-d H:i:s'));
+            header('Location: index.php');
+            exit();}
 
-        if ($entries['count'] == 0) {
-            throw new Exception("Vous n'appartenez pas au groupe autorisé");
+        else{
+            throw new Exception("identifiants incorrects");
         }
 
-        // Connexion réussie
-        $_SESSION['username'] = $username;
-        $_SESSION['group'] = $ldap_group_user_dn;
-        
-        // Log de connexion réussie
-        error_log("Connexion réussie pour {$username} le " . date('Y-m-d H:i:s'));
-        
-        header('Location: index.php');
-        exit();
+
 
     } catch (Exception $e) {
         $error = $e->getMessage();

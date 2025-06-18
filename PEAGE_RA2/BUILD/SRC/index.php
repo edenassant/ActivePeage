@@ -1,13 +1,22 @@
 <?php
+
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'config.php';
+
+require_once __DIR__ . '/classes/User.php';
+
 
 require_once __DIR__ . '/app/protection.php';
 
 session_start();
 
-#$user = new User();
-#$username = $user->getUsername();
 
+$user = new User();
+$username = $user->getUsername();
 
 
 $hash_attendu = 'e4cb48d6315121408622b298129f845469bca3b6cacd1a1c9f6abbee29fa8069';
