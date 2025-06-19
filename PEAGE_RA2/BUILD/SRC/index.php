@@ -89,13 +89,13 @@ if (strip_tags($__eden__txt) !== '© Eden Assant') {
     </form>
 
 
-      <button onclick="logout()" style="background-color:  lightseagreen; color: white; padding: 2px 14px; font-size: 20px;">
+      <button onclick="logout()" style="background-color:  #007bff; color: white; font-size: 20px;">
           Se déconnecter
       </button>
 
       <script>
           function logout() {
-              fetch('logout.php', {
+              fetch('logout.php', { //fetch est une méthode native pour envoyer des requêtes API tout en gardant un code clair.
                   method: 'POST'
               }).then(() => {
                   window.location.href = 'login.php';
