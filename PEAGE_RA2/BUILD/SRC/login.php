@@ -7,6 +7,9 @@ require 'config.php';
 $error = null;
 
 
+
+https://chatgpt.com/share/68541276-0538-8009-a5ae-80bca2ce491b
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
